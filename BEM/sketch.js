@@ -2,13 +2,17 @@
 let mouseShape = 'ellipse(mouseX, mouseY, 5, 5)';
 let circleButton = document.getElementById('circleButton');
 let squareButton = document.getElementById('squareButton');
-let sizeInput = document.getElementById('size').value;
+let sizeInput = document.getElementById('size');
 circleButton.classList.add("buttons--button__active");
 
-function changeSize(sizeInput) {
-    sizeChange = eval(sizeInput);
-    console.log(sizeInput + ' ' + sizeChange);
-    if (typeof sizeChange == 'number') {
+
+sizeInput.onchange = function() {
+    sizeValue = sizeInput;
+    changeSize(sizeValue);
+}
+
+function changeSize(sizeAmount) {
+    if (sizeInput == 5) {
         console.log('lmao');
      } else {
          document.getElementById('error').innerHTML = 'Please only enter numbers.';

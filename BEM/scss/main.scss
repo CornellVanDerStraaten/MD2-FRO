@@ -23,13 +23,13 @@ main {
     border-bottom: 2px solid black;
     background-color:white;
     background-image: url("https://www.transparenttextures.com/patterns/escheresque-dark.png");
-    & .intro--title {
+    & .intro__title {
         font-size: 30px;
     }
-    & .intro--text {
+    & .intro__text {
         font-size: 18px;
     }
-    & .intro--button {
+    & .intro__button {
         font-size: 20px;
         border: 2px solid black;
         color: black;
@@ -52,7 +52,7 @@ canvas {
     grid-column: 2/3;
     grid-row: 3/4;
     margin-top: 10px;
-    & .buttons--button {
+    & .buttons__button {
         font-size: 20px;
         border: 2px solid black;
         color: black;
@@ -61,7 +61,7 @@ canvas {
         margin-bottom: 10px;
         border-radius: 5px;
     }
-    & .buttons--button__active {
+    & .buttons__button--active {
         background-color: rgb(132, 196, 196);
     }
 }

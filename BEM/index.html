@@ -11,20 +11,20 @@
 <body>
     <main>
         <div class="intro">
-            <h1 class="intro--title">Draw Experiment P5.js</h1>
-            <p class="intro--text">You can enter info into the inputs to customize the outcome. <br>
+            <h1 class="intro__title">Draw Experiment P5.js</h1>
+            <p class="intro__text">You can enter info into the inputs to customize the outcome. <br>
                 Hold mouse-button over right area. Also BEM exercise.</p>
-            <a href="C:\Users\Cornell\Desktop\bewijzenmap\periode2.1\MD2-FRO\BEM\index.html"><button
-                    class="intro--button">RESET</button></a>
+            <a href="http://30183.hosts2.ma-cloud.nl/bewijzenmap/periode2.1/MD2-FRO/BEM/index.html"><button
+                    class="intro__button">RESET</button></a>
         </div>
         <div class="inputs">
-            <label for="size" class="inputs--label">Change size</label>
-            <input class="inputs--input" type="text" name="size" id="size" onchange="changeSize()">
-            <p class="inputs--error" id="error"></p>
+            <label for="size" class="inputs__label">Change size</label>
+            <input class="inputs__input" type="text" name="size" value="5" id="size" >
+            <p class="inputs__error" id="error"></p>
         </div>
         <div class="buttons">
-            <button class="buttons--button" id="circleButton" onclick="makeMouseShapeEllipse()">Make mouse shape circle</button>
-            <button class="buttons--button" id="squareButton" onclick="makeMouseShapeSquare()">Make mouse shape square</button>
+            <button class="buttons__button" id="circleButton" onclick="makeMouseShapeEllipse()">Make mouse shape circle</button>
+            <button class="buttons__button" id="squareButton" onclick="makeMouseShapeSquare()">Make mouse shape square</button>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
