@@ -38,7 +38,7 @@ const boeken = {
             html += `<img class="boek__cover" src="${boek.cover}" alt="${fullTitel}">`;
             html += `<h3 class="boek__titel">${fullTitel}</h3>`;
             html += `<p class="boek__auteurs""> ${schrijvers}</p>`;
-            html += `<span class="boek__uitgave"> ${boek.uitgave}</span>`;
+            html += `<span class="boek__uitgave"> ${this.datumOmzetten(boek.uitgave)}</span>`;
             html += `<span class="boek__ean"> ${boek.ean}</span>`;
             html += `<span class="boek__paginas"> ${boek.paginas}</span>`;
             html += `<span class="boek__taal"> ${boek.taal}</span>`;
@@ -46,6 +46,31 @@ const boeken = {
             html += `</section>`;
         });
         output.innerHTML = html;
+    },
+    datumOmzetten(uitgaveString) {
+        let datum = new Date(uitgaveString);
+        let jaar = datum.getFullYear();
+        let maand = this.krijgMaandString(datum.getMonth());
+        return `${maand} ${jaar}`;
+    },
+    krijgMaandString(m) {
+        let maand = "";
+        switch (m) {
+            case 0 : maand = 'januari'; break;
+            case 1 : maand = 'februari'; break;
+            case 2 : maand = 'maart'; break;
+            case 3 : maand = 'april'; break;
+            case 4 : maand = 'mei'; break;
+            case 5 : maand = 'juni'; break;
+            case 6 : maand = 'juli'; break;
+            case 7 : maand = 'augustus'; break;
+            case 8 : maand = 'september'; break;
+            case 9 : maand = 'october'; break;
+            case 10 : maand = 'november'; break;
+            case 11: maand = 'december'; break;
+            default : maand = m;
+        }
+        return maand;
     }
 }
 
