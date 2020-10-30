@@ -26,11 +26,12 @@ const boeken = {
             // Html tags toevoegen
             html += `<section class="boek-container">`;
             html += `<img class="boek__cover" src="${boek.cover}" alt="${fullTitel}">`;
-            html += `<h3>${fullTitel}</h3>`;
+            html += `<h3 class="boek__titel">${fullTitel}</h3>`;
             html += `<span class="boek__uitgave"> ${boek.uitgave}</span>`;
             html += `<span class="boek__ean"> ${boek.ean}</span>`;
             html += `<span class="boek__paginas"> ${boek.paginas}</span>`;
             html += `<span class="boek__taal"> ${boek.taal}</span>`;
+            html += `<span class="boek__prijs">&euro; ${boek.prijs}</span>`;
             html += `</section>`;
         });
         output.innerHTML = html;
