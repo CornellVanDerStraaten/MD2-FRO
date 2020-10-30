@@ -2,6 +2,8 @@ const output = document.getElementById('boekenLijst');
 const xhr = new XMLHttpRequest();
 // Filter checkboxes
 const taalKeuze = document.querySelectorAll('.control__cb-lang');
+// Sort choice select
+const selectSort = document.querySelector('.controls__select');
 
 xhr.onreadystatechange = () => {
     if(xhr.readyState == 4 && xhr.status == 200) {
@@ -34,9 +36,6 @@ const boeken = {
         else if (this.es == 'uitgave') {this.data.sort( (a,b) => ( a.uitgave > b.uitgave ) ? 1 : -1 ); }
         else if (this.es == 'prijs') {this.data.sort( (a,b) => ( a.prijs > b.prijs ) ? 1 : -1 ); }
         else if (this.es == 'auteur') {this.data.sort( (a,b) => ( a.auteurs[0].achternaam > b.auteurs[0].achternaam ) ? 1 : -1 ); }
-
-
-
     },
     uitvoeren() {
         this.sorteren();
@@ -110,4 +109,11 @@ const pasFilterAan = () => {
     boeken.uitvoeren();
 }
 
+const changeSortOption = () => {
+    boeken.es = selectSort.value;
+    boeken.uitvoeren();
+}
+
 taalKeuze.forEach( cb => cb.addEventListener('change', pasFilterAan) );
+
+selectSort.addEventListener('change', changeSortOption);
