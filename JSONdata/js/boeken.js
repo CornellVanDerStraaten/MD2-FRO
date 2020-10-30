@@ -62,14 +62,16 @@ const boeken = {
             // Html tags toevoegen
             html += `<section class="boek-container">`;
             html += `<img class="boek__cover" src="${boek.cover}" alt="${fullTitel}">`;
+            html += `<div class="boek__info">`;
             html += `<h3 class="boek__titel">${fullTitel}</h3>`;
             html += `<p class="boek__auteurs""> ${schrijvers}</p>`;
             html += `<span class="boek__uitgave"> ${this.datumOmzetten(boek.uitgave)}</span>`;
             html += `<span class="boek__ean"> ${boek.ean}</span>`;
             html += `<span class="boek__paginas"> ${boek.paginas}</span>`;
             html += `<span class="boek__taal"> ${boek.taal}</span><br>`;
-            html += `<span class="boek__prijs">${boek.prijs.toLocaleString('nl-NL', {currency: 'EUR', style: 'currency'})}</span>`;
-            html += `</section>`;
+            html += `<div class="boek__prijs">${boek.prijs.toLocaleString('nl-NL', {currency: 'EUR', style: 'currency'})}
+                     <a href="#" class="boek__bestel-knop">Bestellen</a></div>`;
+            html += `</div></section>`;
         });
         output.innerHTML = html;
     },
