@@ -3,7 +3,8 @@ body {
 }
 .ww {
     position: absolute;
-    right: 2em;
+    right: 4em;
+    top: 2em;
 }
 .ww__icon {
     font-size: 60px;
@@ -78,4 +79,25 @@ body {
     .boek-container:nth-child(4n+2), .boek-container:nth-child(4n+3) {
         background-color: #ccc;
     }
+}
+
+#getForm {
+    display: none;
+}
+#getForm:checked ~ .bestelform {
+    transform: translateX(0vw);
+}
+.bestelform {
+    background-color: whitesmoke;
+    position: absolute;
+    width: 90vw;
+    min-height: 90vh;
+    top: 0em;
+    border-radius: 2em;
+    border: solid 2px gray;
+    padding: 2em;
+    box-sizing: border-box;
+    margin: 4vh 4vw;
+    transform: translateX(100vw);
+    transition: transform 1s ease-out;
 }

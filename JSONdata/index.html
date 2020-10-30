@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +8,26 @@
     <script src="https://kit.fontawesome.com/1eb7c10cba.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/boekStijl.css">
 </head>
+
 <body>
-    <div class="ww">
-        <i class="fas fa-shopping-cart ww__icon"></i>
-        <span class="ww__aantal">0</span>
+    <input type="checkbox" id="getForm">
+    <div class="bestelform">
+        <h2>Uw bestelling</h2>
+        <div class="uitvoer"></div>
     </div>
+    
+    <label for="getForm">
+        <div class="ww">
+            <i class="fas fa-shopping-cart ww__icon"></i>
+            <span class="ww__aantal">0</span>
+        </div>
+    </label>
     <h1>Kies uit de volgende boeken</h1>
 
     <div class="controls">
         <label class="controls__cb-label">
             <input type="checkbox" class="control__cb-lang" value="Nederlands" checked>
-            Nederlands 
+            Nederlands
         </label>
         <label class="controls__cb-label">
             <input type="checkbox" class="control__cb-lang" value="Engels" checked>
@@ -31,22 +41,23 @@
 
     <!-- Sorteer mogelijkheid -->
     <span class="control__sort">
-    <label  class="controls__select--label">
-        Sorteren op
-        <select id="controls__select" class="controls__select">
-            <option value="titel">Titel</option>
-            <option value="auteur">Auteur</option>
-            <option value="uitgave">Publicatie Datum</option>
-            <option value="paginas">Aantal paginas</option>
-            <option value="prijs">Prijs</option>
-        </select>
-        <label ><input type="radio" name="opaf" checked class="controls__rb" checked value="1">Oplopend</label>
-        <label ><input type="radio" name="opaf" checked class="controls__rb" value="-1">Aflopend</label>
-    </label>
-</span>
-<br>
-<br>
+        <label class="controls__select--label">
+            Sorteren op
+            <select id="controls__select" class="controls__select">
+                <option value="titel">Titel</option>
+                <option value="auteur">Auteur</option>
+                <option value="uitgave">Publicatie Datum</option>
+                <option value="paginas">Aantal paginas</option>
+                <option value="prijs">Prijs</option>
+            </select>
+            <label><input type="radio" name="opaf" checked class="controls__rb" checked value="1">Oplopend</label>
+            <label><input type="radio" name="opaf" checked class="controls__rb" value="-1">Aflopend</label>
+        </label>
+    </span>
+    <br>
+    <br>
     <div id="boekenLijst"></div>
     <script src="js/boeken.js"></script>
 </body>
+
 </html>

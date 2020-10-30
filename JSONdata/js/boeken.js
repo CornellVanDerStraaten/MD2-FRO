@@ -22,6 +22,8 @@ xhr.send();
 const ww = {
     bestelling: []
 }
+ww.bestelling = JSON.parse(localStorage.wwBestelling);
+boekenInWinkelwagen.innerHTML = ww.bestelling.length;
 
 
 // Object voor alle boeken
@@ -94,6 +96,7 @@ const boeken = {
                 let selecteerdeBoek = this.data.filter( b => b.ean == boekEan);
                 ww.bestelling.push(selecteerdeBoek[0]);
                 boekenInWinkelwagen.innerHTML = ww.bestelling.length;
+                localStorage.wwBestelling = JSON.stringify(ww.bestelling);
             })
         })
     },
