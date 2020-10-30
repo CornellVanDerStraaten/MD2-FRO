@@ -4,6 +4,7 @@ const xhr = new XMLHttpRequest();
 const taalKeuze = document.querySelectorAll('.control__cb-lang');
 // Sort choice select
 const selectSort = document.querySelector('.controls__select');
+const boekenInWinkelwagen = document.querySelector('.ww__aantal');
 
 xhr.onreadystatechange = () => {
     if(xhr.readyState == 4 && xhr.status == 200) {
@@ -15,6 +16,17 @@ xhr.onreadystatechange = () => {
 xhr.open('GET', 'boekenTheo.json', true);
 xhr.send();
 
+// Object van winkelwagen
+// Properties: bestelling (bestelde boeken)
+// Methods:
+const ww = {
+    bestelling: []
+}
+
+
+// Object voor alle boeken
+// Properties: TaalFilter, data, es
+// Methods: filteren, sorteren, uitvoeren
 const boeken = {
 
     taalFilter: ['Nederlands', 'Duits', 'Engels'],
@@ -70,10 +82,20 @@ const boeken = {
             html += `<span class="boek__paginas"> ${boek.paginas}</span>`;
             html += `<span class="boek__taal"> ${boek.taal}</span><br>`;
             html += `<div class="boek__prijs">${boek.prijs.toLocaleString('nl-NL', {currency: 'EUR', style: 'currency'})}
-                     <a href="#" class="boek__bestel-knop">Bestellen</a></div>`;
+                     <a href="#" class="boek__bestel-knop" data-role="${boek.ean}">Bestellen</a></div>`;
             html += `</div></section>`;
         });
         output.innerHTML = html;
+        // Knoppen een eventlistener geven
+        document.querySelectorAll('.boek__bestel-knop').forEach( knop => {
+            knop.addEventListener('click', e => {
+                e.preventDefault();
+                let boekEan = e.target.getAttribute('data-role');
+                let selecteerdeBoek = this.data.filter( b => b.ean == boekEan);
+                ww.bestelling.push(selecteerdeBoek[0]);
+                boekenInWinkelwagen.innerHTML = ww.bestelling.length;
+            })
+        })
     },
     datumOmzetten(uitgaveString) {
         let datum = new Date(uitgaveString);
