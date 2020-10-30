@@ -25,6 +25,7 @@
     </div>
 
     <!-- Sorteer mogelijkheid -->
+    <span class="control__sort">
     <label  class="controls__select--label">
         Sorteren op
         <select id="controls__select" class="controls__select">
@@ -34,8 +35,10 @@
             <option value="paginas">Aantal paginas</option>
             <option value="prijs">Prijs</option>
         </select>
+        <label ><input type="radio" name="opaf" checked class="controls__rb" checked value="1">Oplopend</label>
+        <label ><input type="radio" name="opaf" checked class="controls__rb" value="-1">Aflopend</label>
     </label>
-
+</span>
     <div id="boekenLijst"></div>
     <script src="js/boeken.js"></script>
 </body>
