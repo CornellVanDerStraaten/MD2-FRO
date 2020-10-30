@@ -20,10 +20,32 @@ xhr.send();
 // Properties: bestelling (bestelde boeken)
 // Methods:
 const ww = {
-    bestelling: []
+    bestelling: [],
+
+    boekToevoegen(obj) {
+        ww.bestelling.push(obj);
+        boekenInWinkelwagen.innerHTML = this.bestelling.length;
+        this.dataOpslaan();
+    },
+    
+    // Data in local storage opslaan
+    dataOpslaan() {
+        localStorage.wwBestelling = JSON.stringify(this.bestelling);
+    },
+
+    // Data uit local storage halen
+    dataOphalen() {
+        if (localStorage.getItem("wwBestelling") === null) {
+            boekenInWinkelwagen.innerHTML = '0';
+          } else {
+            ww.bestelling = JSON.parse(localStorage.wwBestelling);
+            boekenInWinkelwagen.innerHTML = ww.bestelling.length;  
+          }
+        
+    }
 }
-ww.bestelling = JSON.parse(localStorage.wwBestelling);
-boekenInWinkelwagen.innerHTML = ww.bestelling.length;
+// Data uit local storage halen
+ww.dataOphalen();
 
 
 // Object voor alle boeken
@@ -94,9 +116,9 @@ const boeken = {
                 e.preventDefault();
                 let boekEan = e.target.getAttribute('data-role');
                 let selecteerdeBoek = this.data.filter( b => b.ean == boekEan);
-                ww.bestelling.push(selecteerdeBoek[0]);
-                boekenInWinkelwagen.innerHTML = ww.bestelling.length;
-                localStorage.wwBestelling = JSON.stringify(ww.bestelling);
+                ww.boekToevoegen(selecteerdeBoek[0]);
+               
+                
             })
         })
     },
