@@ -5,6 +5,7 @@ xhr.onreadystatechange = () => {
     if(xhr.readyState == 4 && xhr.status == 200) {
         let result = JSON.parse(xhr.responseText);
         boeken.data = result;
+        boeken.filteren( result );
         boeken.uitvoeren();
     } 
 }
@@ -13,6 +14,12 @@ xhr.send();
 
 const boeken = {
 
+    taalFilter: 'Nederlands',
+
+    // Filter op taal
+    filteren ( gegevens ) {
+        this.data = gegevens.filter( (bk) => {return bk.taal == this.taalFilter } );
+    },
     uitvoeren() {
         let html = "";
         this.data.forEach( boek => {
@@ -41,7 +48,7 @@ const boeken = {
             html += `<span class="boek__uitgave"> ${this.datumOmzetten(boek.uitgave)}</span>`;
             html += `<span class="boek__ean"> ${boek.ean}</span>`;
             html += `<span class="boek__paginas"> ${boek.paginas}</span>`;
-            html += `<span class="boek__taal"> ${boek.taal}</span>`;
+            html += `<span class="boek__taal"> ${boek.taal}</span><br>`;
             html += `<span class="boek__prijs">${boek.prijs.toLocaleString('nl-NL', {currency: 'EUR', style: 'currency'})}</span>`;
             html += `</section>`;
         });
