@@ -23,10 +23,18 @@ const boeken = {
             }
             fullTitel += boek.titel;
 
+            // Lijst met auteurs maken
+            let schrijvers = "";
+            boek.auteurs.forEach(schrijver => {
+                let tv = schrijver.tussenvoegsel ? schrijver.tussenvoegsel+" " : "";
+                let seperator = " ";
+                schrijvers += schrijver.voornaam + " " + tv + schrijver.achternaam + seperator
+            })
             // Html tags toevoegen
             html += `<section class="boek-container">`;
             html += `<img class="boek__cover" src="${boek.cover}" alt="${fullTitel}">`;
             html += `<h3 class="boek__titel">${fullTitel}</h3>`;
+            html += `<p class="boek__auteurs""> ${schrijvers}</p>`;
             html += `<span class="boek__uitgave"> ${boek.uitgave}</span>`;
             html += `<span class="boek__ean"> ${boek.ean}</span>`;
             html += `<span class="boek__paginas"> ${boek.paginas}</span>`;
