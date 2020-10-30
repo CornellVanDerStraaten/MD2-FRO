@@ -16,13 +16,18 @@ const boeken = {
     uitvoeren() {
         let html = "";
         this.data.forEach( boek => {
-            let titel = "";
+            // Bij sprake van een voortitel, zet deze bij de titel
+            let fullTitel = "";
             if ( boek.voortitel ) {
-                titel += boek.voortitel + " ";
+                fullTitel += boek.voortitel + " ";
             }
-            titel += boek.titel;
+            fullTitel += boek.titel;
 
-            html += `<h3>${titel}</h3>`;
+            // Html tags toevoegen
+            html += `<section class="boek-container">`;
+            html += `<img class="boek__cover" src="${boek.cover}" alt="${fullTitel}">`;
+            html += `<h3>${fullTitel}</h3>`;
+            html += `</section>`;
         });
         output.innerHTML = html;
     }
