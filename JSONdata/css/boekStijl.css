@@ -26,3 +26,12 @@ body {
     float: right;
     text-align: right;
 }
+@media (min-width:1250px) {
+    #boekenLijst {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .boek-container:nth-child(4n+2), .boek-container:nth-child(4n+3) {
+        background-color: #ccc;
+    }
+}
