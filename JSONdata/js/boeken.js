@@ -42,6 +42,7 @@ const ww = {
         if (localStorage.wwBestelling) {
             this.bestelling = JSON.parse(localStorage.wwBestelling);  
           }
+          this.uitvoeren()
           
     },
     uitvoeren() {
@@ -61,6 +62,7 @@ const ww = {
             html += `<td>${totaleTitel}</td>`;
             html += `<td>${boek.besteldAantal}</td>`;
             html += `<td>${boek.prijs.toLocaleString('nl-NL', {currency: 'EUR', style: 'currency'})}</td>`;
+            html += `<td><i class="fas fa-trash verwijder-icoon" data-role="${boek.ean}"></i></td>`;
             html += `<tr>`;
             totaal += boek.prijs * boek.besteldAantal;
             totaalBesteld += boek.besteldAantal;
@@ -71,7 +73,18 @@ const ww = {
         html += `</table>`;
         document.getElementById('uitvoer').innerHTML = html;
         boekenInWinkelwagen.innerHTML = totaalBesteld;  
-
+        this.verwijderenActiveren();
+    },
+    verwijderenActiveren() {
+        document.querySelectorAll('.verwijder-icoon').forEach( icoon => {
+            icoon.addEventListener('click', e => {
+                let teVerwijderenBoekID = e.target.getAttribute('data-role');
+                this.bestelling = this.bestelling.filter( bk => bk.ean != teVerwijderenBoekID );
+                //Local storage bijwerken
+                localStorage.wwBestelling = JSON.stringify(this.bestelling);
+                this.uitvoeren();
+            })
+        })
     }
 }
 // Data uit local storage halen
