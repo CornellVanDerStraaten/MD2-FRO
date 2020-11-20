@@ -25,9 +25,11 @@ const ww = {
     boekToevoegen(obj) {
         let gevonden = this.bestelling.filter( b => b.ean == obj.ean );
         if ( gevonden.length == 0 ) {
+            obj.besteldAantal ++;
             ww.bestelling.push(obj);
+        } else {
+            gevonden[0].besteldAantal ++;
         }
-        boekenInWinkelwagen.innerHTML = this.bestelling.length;
         localStorage.wwBestelling = JSON.stringify(this.bestelling);
         this.uitvoeren()
     },
@@ -45,6 +47,7 @@ const ww = {
     uitvoeren() {
         let html = `<table>`;
         let totaal = 0;
+        let totaalBesteld = 0;
         this.bestelling.forEach( boek => {
             // Titel maken
             let totaleTitel ="";
@@ -56,16 +59,18 @@ const ww = {
             html += `<tr>`;
             html += `<td><img src="${boek.cover}" alt="${boek.titel}" class="bestelform__cover"><td>`;
             html += `<td>${totaleTitel}</td>`;
+            html += `<td>${boek.besteldAantal}</td>`;
             html += `<td>${boek.prijs.toLocaleString('nl-NL', {currency: 'EUR', style: 'currency'})}</td>`;
             html += `<tr>`;
-            totaal += boek.prijs;
+            totaal += boek.prijs * boek.besteldAantal;
+            totaalBesteld += boek.besteldAantal;
         })
-        html += `<tr><td colspan="3">Totaal</td>
+        html += `<tr><td colspan="4">Totaal</td>
         <td>${totaal.toLocaleString('nl-NL', {currency: 'EUR', style: 'currency'})}</td>
         </tr>`;
         html += `</table>`;
         document.getElementById('uitvoer').innerHTML = html;
-        boekenInWinkelwagen.innerHTML = ww.bestelling.length;  
+        boekenInWinkelwagen.innerHTML = totaalBesteld;  
 
     }
 }
@@ -145,7 +150,6 @@ const boeken = {
                 e.preventDefault();
                 let boekEan = e.target.getAttribute('data-role');
                 let selecteerdeBoek = this.data.filter( b => b.ean == boekEan);
-                selecteerdeBoek[0].besteldAantal ++;
                 ww.boekToevoegen(selecteerdeBoek[0]);
                
                 
