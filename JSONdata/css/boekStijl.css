@@ -115,3 +115,10 @@ body {
 .bestelform__cover {
     height: 3em;
 }
+.verwijder-icoon, .bestelformulier__verlaag, .bestelformulier__verhoog {
+    padding: 0 1em;
+    cursor: pointer;
+}
+.verwijder-icoon:hover, .bestelformulier__verlaag:hover, .bestelformulier__verhoog:hover {
+    color: red;
+}

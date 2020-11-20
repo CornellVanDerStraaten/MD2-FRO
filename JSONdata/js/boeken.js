@@ -60,7 +60,10 @@ const ww = {
             html += `<tr>`;
             html += `<td><img src="${boek.cover}" alt="${boek.titel}" class="bestelform__cover"><td>`;
             html += `<td>${totaleTitel}</td>`;
-            html += `<td>${boek.besteldAantal}</td>`;
+            html += `<td class="bestelformulier__aantal">
+            <i class="fas fa-arrow-down bestelformulier__verlaag" data-role="${boek.ean}"></i>
+            ${boek.besteldAantal}
+            <i class="fas fa-arrow-up bestelformulier__verhoog" data-role="${boek.ean}"></i></td>`;
             html += `<td>${boek.prijs.toLocaleString('nl-NL', {currency: 'EUR', style: 'currency'})}</td>`;
             html += `<td><i class="fas fa-trash verwijder-icoon" data-role="${boek.ean}"></i></td>`;
             html += `<tr>`;
@@ -74,6 +77,36 @@ const ww = {
         document.getElementById('uitvoer').innerHTML = html;
         boekenInWinkelwagen.innerHTML = totaalBesteld;  
         this.verwijderenActiveren();
+        this.hogerLagerActiveren();
+    },
+    hogerLagerActiveren() {
+        let hogerKnoppen = document.querySelectorAll('.bestelformulier__verhoog');
+        hogerKnoppen.forEach(knop => {
+            knop.addEventListener('click', e => {
+                let ophoogID = e.target.getAttribute('data-role');
+                let opTeHogenBoek = this.bestelling.filter( boek => boek.ean == ophoogID);
+                opTeHogenBoek[0].besteldAantal ++;
+                localStorage.wwBestelling = JSON.stringify(this.bestelling);
+                this.uitvoeren();
+            })
+        })
+
+        // Verlaagknop
+        let lagerKnoppen = document.querySelectorAll('.bestelformulier__verlaag');
+        lagerKnoppen.forEach(knop => {
+            knop.addEventListener('click', e => {
+                let verlaagID = e.target.getAttribute('data-role');
+                let teVerlagenAantal = this.bestelling.filter( boek => boek.ean == verlaagID);
+                if (teVerlagenAantal[0].besteldAantal>1) {
+                    teVerlagenAantal[0].besteldAantal --;
+                } else {
+                    //Boek verwijderen
+                    this.bestelling = this.bestelling.filter( bk => bk.ean != verlaagID );
+                }
+                localStorage.wwBestelling = JSON.stringify(this.bestelling);
+                this.uitvoeren();
+            })
+        })
     },
     verwijderenActiveren() {
         document.querySelectorAll('.verwijder-icoon').forEach( icoon => {
@@ -163,9 +196,7 @@ const boeken = {
                 e.preventDefault();
                 let boekEan = e.target.getAttribute('data-role');
                 let selecteerdeBoek = this.data.filter( b => b.ean == boekEan);
-                ww.boekToevoegen(selecteerdeBoek[0]);
-               
-                
+                ww.boekToevoegen(selecteerdeBoek[0]); 
             })
         })
     },
