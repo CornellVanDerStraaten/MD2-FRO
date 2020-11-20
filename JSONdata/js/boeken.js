@@ -25,23 +25,47 @@ const ww = {
     boekToevoegen(obj) {
         ww.bestelling.push(obj);
         boekenInWinkelwagen.innerHTML = this.bestelling.length;
-        this.dataOpslaan();
+        localStorage.wwBestelling = JSON.stringify(this.bestelling);
+
     },
     
-    // Data in local storage opslaan
-    dataOpslaan() {
-        localStorage.wwBestelling = JSON.stringify(this.bestelling);
-    },
 
     // Data uit local storage halen
     dataOphalen() {
+        // Als er niets in de localstorage staat, voer dan niets uit
+        // Anders komen er errors waardoor de site niet meer werkt
         if (localStorage.getItem("wwBestelling") === null) {
             boekenInWinkelwagen.innerHTML = '0';
           } else {
-            ww.bestelling = JSON.parse(localStorage.wwBestelling);
-            boekenInWinkelwagen.innerHTML = ww.bestelling.length;  
+            this.bestelling = JSON.parse(localStorage.wwBestelling);
+            this.uitvoeren()
           }
-        
+    },
+    uitvoeren() {
+        let html = `<table>`;
+        let totaal = 0;
+        this.bestelling.forEach( boek => {
+            // Titel maken
+            let totaleTitel ="";
+            if ( boek.voortitel ) {
+                totaleTitel += boek.voortitel + " ";
+            }
+            totaleTitel += boek.titel;
+            // String opbouw
+            html += `<tr>`;
+            html += `<td><img src="${boek.cover}" alt="${boek.titel}" class="bestelform__cover"><td>`;
+            html += `<td>${totaleTitel}</td>`;
+            html += `<td>${boek.prijs.toLocaleString('nl-NL', {currency: 'EUR', style: 'currency'})}</td>`;
+            html += `<tr>`;
+            totaal += boek.prijs;
+        })
+        html += `<tr><td colspan="3">Totaal</td>
+        <td>${totaal.toLocaleString('nl-NL', {currency: 'EUR', style: 'currency'})}</td>
+        </tr>`;
+        html += `</table>`;
+        document.getElementById('uitvoer').innerHTML = html;
+        boekenInWinkelwagen.innerHTML = ww.bestelling.length;  
+
     }
 }
 // Data uit local storage halen
