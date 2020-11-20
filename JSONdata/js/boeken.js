@@ -23,10 +23,13 @@ const ww = {
     bestelling: [],
 
     boekToevoegen(obj) {
-        ww.bestelling.push(obj);
+        let gevonden = this.bestelling.filter( b => b.ean == obj.ean );
+        if ( gevonden.length == 0 ) {
+            ww.bestelling.push(obj);
+        }
         boekenInWinkelwagen.innerHTML = this.bestelling.length;
         localStorage.wwBestelling = JSON.stringify(this.bestelling);
-
+        this.uitvoeren()
     },
     
 
@@ -34,12 +37,10 @@ const ww = {
     dataOphalen() {
         // Als er niets in de localstorage staat, voer dan niets uit
         // Anders komen er errors waardoor de site niet meer werkt
-        if (localStorage.getItem("wwBestelling") === null) {
-            boekenInWinkelwagen.innerHTML = '0';
-          } else {
-            this.bestelling = JSON.parse(localStorage.wwBestelling);
-            this.uitvoeren()
+        if (localStorage.wwBestelling) {
+            this.bestelling = JSON.parse(localStorage.wwBestelling);  
           }
+          
     },
     uitvoeren() {
         let html = `<table>`;
@@ -102,6 +103,10 @@ const boeken = {
         this.sorteren();
         let html = "";
         this.data.forEach( boek => {
+
+            // Elk boek een aantalBesteld geven
+            boek.besteldAantal = 0;
+
             // Bij sprake van een voortitel, zet deze bij de titel
             let fullTitel = "";
             if ( boek.voortitel ) {
@@ -140,6 +145,7 @@ const boeken = {
                 e.preventDefault();
                 let boekEan = e.target.getAttribute('data-role');
                 let selecteerdeBoek = this.data.filter( b => b.ean == boekEan);
+                selecteerdeBoek[0].besteldAantal ++;
                 ww.boekToevoegen(selecteerdeBoek[0]);
                
                 
